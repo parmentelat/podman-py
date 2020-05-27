@@ -14,7 +14,7 @@ class TestConnection(unittest.TestCase):
     def test_001_ctor(self):
         self.assertRaises(ValueError, podman.ApiConnection, "")
 
-    def test_001_ctor(self):
+    def test_002_ctor(self):
         self.assertRaises(ValueError, podman.ApiConnection,
                           "tcp://localhost//")
 
