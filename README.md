@@ -1,7 +1,9 @@
 # podman-py
+
 This python package is a set of bindings to use the new RESTful API in [libpod](https://github.com/containers/libpod).  It is currently under development and contributors are welcome!
 
 ## Example usage
+
 ```python
 
 from podman import ApiConnection, system, images, containers
@@ -32,4 +34,5 @@ with ApiConnection(uri) as api:
 ```
 
 ## Contributing
+
 See [CONTRIBUTING.md](https://github.com/containers/podman-py/blob/master/CONTRIBUTING.md)
