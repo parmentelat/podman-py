@@ -35,11 +35,11 @@ def image_exists(api, name):
 
 def remove(api, name, force=None):
     """Remove named/identified image from Podman storage."""
-    path = ""
+    path = "/images/{}".format(api.quote(name))
     if force is not None:
-        path = api.join("/images/", api.quote(name), {"force": force})
+        path = api.join(path, {"force": force})
     else:
-        path = api.join("/images/", api.quote(name))
+        path = api.join(path)
 
     try:
         response = api.request("DELETE", path)
