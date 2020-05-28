@@ -41,6 +41,29 @@ def kill(api, name, signal=None):
         _report_not_found(e, e.response)
 
 
+def remove(api, name, force=None, delete_volumes=None):
+    """Delete container"""
+    path = "/containers/{}".format(api.quote(name))
+    query = {}
+    if force is not None:
+        query['force'] = force
+    if delete_volumes is not None:
+        query['v'] = delete_volumes
+    if query:
+        path = api.join(path, query)
+    else:
+        path = api.join(path)
+
+    try:
+        response = api.request("DELETE", path)
+        response.read() # returns an empty bytes object
+        # return json.loads(response.read())
+        return True
+    except errors.NotFoundError as e:
+        _report_not_found(e, e.response)
+    # xxx need to handle error 409 Conflict error in operation ?
+
+
 def _report_not_found(e, response):
     body = json.loads(response.read())
     logging.info(body["cause"])
@@ -51,4 +74,5 @@ __ALL__ = [
     "list_containers",
     "inspect",
     "kill",
+    "remove",
 ]
