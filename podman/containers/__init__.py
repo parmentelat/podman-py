@@ -5,9 +5,19 @@ import logging
 import podman.errors as errors
 
 
-def list_containers(api):
+def list_containers(api, all=None):
     """List all containers for a Podman service."""
-    response = api.request("GET", api.join("/containers/json"))
+    path = "/containers/json"
+    query = {}
+    if all is not None:
+        query['all'] = all
+
+    if query:
+        path = api.join(path, query)
+    else:
+        path = api.join(path)
+    
+    response = api.request("GET", path)
     return json.loads(response.read())
 
 
