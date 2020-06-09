@@ -18,7 +18,8 @@ def list_containers(api, all=None):
         path = api.join(path)
     
     response = api.request("GET", path)
-    return json.loads(response.read())
+    # observed to return None when no containers
+    return json.loads(response.read()) or []
 
 
 def inspect(api, name):
